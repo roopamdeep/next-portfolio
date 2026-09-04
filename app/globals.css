@@ -24,3 +24,11 @@ body {
   color: #f2f1f8;
   font-family: Arial, Helvetica, sans-serif;
 }
+@theme inline {
+  --font-sans: var(--font-space-grotesk);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}

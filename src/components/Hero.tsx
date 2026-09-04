@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { gsap } from "gsap";
 
 export default function Hero() {
@@ -9,6 +9,17 @@ export default function Hero() {
   const nameRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const stars = useMemo(
+    () =>
+      Array.from({ length: 60 }, () => ({
+        top: Math.random() * 100,
+        left: Math.random() * 100,
+        size: Math.random() * 2 + 1,
+        delay: Math.random() * 3,
+      })),
+    [],
+  );
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -31,6 +42,21 @@ export default function Hero() {
       id="home"
       className="min-h-screen flex flex-col justify-center px-6 md:px-20 relative overflow-hidden"
     >
+      {stars.map((star, i) => (
+        <span
+          key={i}
+          className="absolute rounded-full bg-white"
+          style={{
+            top: `${star.top}%`,
+            left: `${star.left}%`,
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            animation: `twinkle 3s ease-in-out infinite`,
+            animationDelay: `${star.delay}s`,
+          }}
+        />
+      ))}
+
       <span className="hidden md:block absolute left-6 top-1/2 -translate-y-1/2 -rotate-90 origin-left text-xs tracking-widest text-neutral-500">
         SCROLL TO EXPLORE
       </span>
@@ -39,17 +65,19 @@ export default function Hero() {
 
       <p
         ref={taglineRef}
-        className="text-purple-300 text-sm tracking-widest mb-4"
+        className="text-purple-300 text-sm tracking-widest mb-4 relative"
       >
         FULL STACK DEVELOPER
       </p>
       <h1
         ref={nameRef}
-        className="text-5xl md:text-8xl font-bold leading-none mb-6 text-neutral-100"
+        className="font-[family-name:var(--font-oswald)] text-6xl md:text-9xl font-bold uppercase leading-[0.85] tracking-tight mb-6 text-neutral-100 relative"
       >
-        Roopamdeep Kaur
+        Roopamdeep
+        <br />
+        Kaur
       </h1>
-      <p ref={descRef} className="text-neutral-400 max-w-md mb-8">
+      <p ref={descRef} className="text-neutral-400 max-w-md mb-8 relative">
         I build fast, thoughtful and interactive digital experiences.
       </p>
       <button
@@ -59,7 +87,7 @@ export default function Hero() {
             .getElementById("projects")
             ?.scrollIntoView({ behavior: "smooth" })
         }
-        className="w-fit bg-white text-black px-6 py-3 rounded-md text-sm font-medium"
+        className="w-fit bg-white text-black px-6 py-3 rounded-md text-sm font-medium relative"
       >
         Explore my work ↗
       </button>
