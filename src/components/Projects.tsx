@@ -16,10 +16,10 @@ const projects = [
   {
     title: "Vault",
     description:
-      "A full-stack personal finance platform with Plaid bank connectivity, automated transaction categorization, anomaly detection, and budget forecasting.",
+      "A full-stack personal finance platform with Plaid bank connectivity, automated transaction categorization via a Python microservice, anomaly detection, and budget forecasting.",
     tags: ["Next.js", "TypeScript", "Python", "PostgreSQL"],
     github: "https://github.com/roopamdeep/vault",
-    demo: "",
+    demo: "https://vault-drab-eight.vercel.app/login",
   },
   {
     title: "StackMatch",
@@ -27,7 +27,7 @@ const projects = [
       "An AI hiring platform matching developers to jobs based on tech stack alignment — JWT auth, AI-powered resume scoring, and AWS S3 file storage.",
     tags: ["Next.js", "TypeScript", "PostgreSQL", "Prisma"],
     github: "https://github.com/roopamdeep/stackmatch",
-    demo: "",
+    demo: "https://stackmatch-rose.vercel.app/",
   },
   {
     title: "TenantTrack",
@@ -35,7 +35,7 @@ const projects = [
       "A multi-role property management app where landlords manage properties and tenants submit maintenance requests with email notifications.",
     tags: ["React", "TypeScript", "Redux", "Node.js"],
     github: "https://github.com/roopamdeep/tenant-track",
-    demo: "",
+    demo: "https://tenant-track-nine.vercel.app/login",
   },
 ];
 

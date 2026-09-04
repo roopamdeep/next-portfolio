@@ -20,7 +20,12 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-6 md:px-20 py-6 z-50 bg-black/30 backdrop-blur-md">
-      <span className="text-white font-medium">RK.</span>
+      <button
+        onClick={() => scrollTo("home")}
+        className="text-white font-medium"
+      >
+        RK.
+      </button>
       <div className="hidden md:flex gap-8 text-sm text-neutral-400">
         {links.map((link) => (
           <button

@@ -1,7 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useMemo } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+
+interface Star {
+  top: number;
+  left: number;
+  size: number;
+  delay: number;
+}
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
@@ -10,16 +17,18 @@ export default function Hero() {
   const descRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const stars = useMemo(
-    () =>
+  const [stars, setStars] = useState<Star[]>([]);
+
+  useEffect(() => {
+    setStars(
       Array.from({ length: 60 }, () => ({
         top: Math.random() * 100,
         left: Math.random() * 100,
         size: Math.random() * 2 + 1,
         delay: Math.random() * 3,
       })),
-    [],
-  );
+    );
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
