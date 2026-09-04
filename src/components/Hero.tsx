@@ -16,6 +16,9 @@ export default function Hero() {
   const nameRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const shape1Ref = useRef<HTMLDivElement>(null);
+  const shape2Ref = useRef<HTMLDivElement>(null);
+  const shape3Ref = useRef<HTMLDivElement>(null);
 
   const [stars, setStars] = useState<Star[]>([]);
 
@@ -41,6 +44,31 @@ export default function Hero() {
         ],
         { opacity: 0, y: 30, duration: 1, stagger: 0.15, ease: "power3.out" },
       );
+
+      gsap.to(shape1Ref.current, {
+        y: -20,
+        x: 15,
+        duration: 5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+      gsap.to(shape2Ref.current, {
+        y: 25,
+        x: -10,
+        duration: 6,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+      gsap.to(shape3Ref.current, {
+        y: -15,
+        x: -20,
+        duration: 4.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
     }, containerRef);
     return () => ctx.revert();
   }, []);
@@ -66,11 +94,27 @@ export default function Hero() {
         />
       ))}
 
+      <div className="hidden md:block absolute right-[10%] top-[20%] w-72 h-72 rounded-full bg-purple-600/20 blur-3xl" />
+      <div className="hidden md:block absolute right-[25%] top-[55%] w-56 h-56 rounded-full bg-purple-400/15 blur-3xl" />
+
+      <div
+        ref={shape1Ref}
+        className="hidden md:block absolute right-[15%] top-[25%] w-20 h-20 rounded-2xl border border-purple-400/30 bg-purple-500/5 backdrop-blur-sm"
+        style={{ transform: "rotate(20deg)" }}
+      />
+      <div
+        ref={shape2Ref}
+        className="hidden md:block absolute right-[35%] top-[45%] w-14 h-14 rounded-full border border-purple-300/30 bg-purple-400/5 backdrop-blur-sm"
+      />
+      <div
+        ref={shape3Ref}
+        className="hidden md:block absolute right-[12%] top-[60%] w-10 h-10 rounded-lg border border-purple-300/30 bg-purple-500/5 backdrop-blur-sm"
+        style={{ transform: "rotate(-15deg)" }}
+      />
+
       <span className="hidden md:block absolute left-6 top-1/2 -translate-y-1/2 -rotate-90 origin-left text-xs tracking-widest text-neutral-500">
         SCROLL TO EXPLORE
       </span>
-
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-100 h-100 rounded-full bg-purple-600/10 blur-3xl" />
 
       <p
         ref={taglineRef}

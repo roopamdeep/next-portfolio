@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
+  SiJavascript,
   SiReact,
   SiNextdotjs,
   SiTypescript,
@@ -12,26 +13,51 @@ import {
   SiPostgresql,
   SiMongodb,
   SiDocker,
+  SiGit,
+  SiSharp,
 } from "react-icons/si";
 import { FaAws } from "react-icons/fa";
+import { AiOutlineDotNet } from "react-icons/ai";
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface Star {
+  top: number;
+  left: number;
+  size: number;
+  delay: number;
+}
+
 const skills = [
-  { name: "React", icon: SiReact },
-  { name: "Next.js", icon: SiNextdotjs },
-  { name: "TypeScript", icon: SiTypescript },
-  { name: "Node.js", icon: SiNodedotjs },
-  { name: "Python", icon: SiPython },
-  { name: "PostgreSQL", icon: SiPostgresql },
-  { name: "MongoDB", icon: SiMongodb },
-  { name: "AWS", icon: FaAws },
-  { name: "Docker", icon: SiDocker },
+  { name: "React", icon: SiReact, color: "#61DAFB" },
+  { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
+  { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+  { name: "Node.js", icon: SiNodedotjs, color: "#5FA04E" },
+  { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
+  { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+  { name: "Docker", icon: SiDocker, color: "#2496ED" },
+  { name: "AWS", icon: FaAws, color: "#FF9900" },
+  { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+  { name: "Python", icon: SiPython, color: "#3776AB" },
+  { name: "C#", icon: SiSharp, color: "#239120" },
+  { name: ".NET", icon: AiOutlineDotNet, color: "#512BD4" },
+  { name: "Git", icon: SiGit, color: "#F05032" },
 ];
 
 export default function TechStack() {
   const sectionRef = useRef<HTMLElement>(null);
-  const orbitRef = useRef<HTMLDivElement>(null);
+  const [stars, setStars] = useState<Star[]>([]);
+
+  useEffect(() => {
+    setStars(
+      Array.from({ length: 40 }, () => ({
+        top: Math.random() * 100,
+        left: Math.random() * 100,
+        size: Math.random() * 2 + 1,
+        delay: Math.random() * 3,
+      })),
+    );
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -46,13 +72,6 @@ export default function TechStack() {
           toggleActions: "play none none none",
         },
       });
-
-      gsap.to(orbitRef.current, {
-        rotate: 360,
-        duration: 30,
-        repeat: -1,
-        ease: "linear",
-      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -61,45 +80,61 @@ export default function TechStack() {
     <section
       ref={sectionRef}
       id="skills"
-      className="px-6 md:px-20 pt-32 pb-24 relative overflow-hidden"
+      className="px-6 md:px-20 py-24 relative overflow-hidden"
     >
-      <span className="absolute left-4 top-32 text-7xl font-bold text-neutral-900 select-none hidden md:block">
+      {stars.map((star, i) => (
+        <span
+          key={i}
+          className="absolute rounded-full bg-white"
+          style={{
+            top: `${star.top}%`,
+            left: `${star.left}%`,
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            animation: `twinkle 3s ease-in-out infinite`,
+            animationDelay: `${star.delay}s`,
+          }}
+        />
+      ))}
+
+      <span className="absolute left-4 top-8 text-7xl font-bold text-neutral-900 select-none hidden md:block">
         03
       </span>
-      <p className="text-purple-300 text-sm tracking-widest mb-4">
-        MY TECH STACK
-      </p>
-      <h2 className="text-3xl md:text-5xl font-bold mb-16">
-        Technologies I work with
-      </h2>
 
-      <div className="relative w-full max-w-2xl mx-auto h-72 flex items-center justify-center overflow-hidden">
-        <div
-          ref={orbitRef}
-          className="absolute w-full h-44 border border-dashed border-purple-900/40 rounded-full"
-        >
+      <div className="relative mb-16">
+        <p className="text-purple-300 text-sm tracking-widest mb-4">
+          MY TECH STACK
+        </p>
+        <h2 className="text-3xl md:text-5xl font-bold mb-4">
+          Technologies I work with
+        </h2>
+        <p className="text-neutral-400 max-w-sm">
+          I use modern tools and technologies to build scalable and efficient
+          applications.
+        </p>
+      </div>
+
+      <div className="relative w-full">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-purple-600/25 blur-3xl" />
+        <div className="relative flex flex-wrap justify-center gap-x-10 gap-y-10">
           {skills.map((skill, i) => {
-            const angle = (i / skills.length) * 2 * Math.PI;
-            const x = 50 + 46 * Math.cos(angle);
-            const y = 50 + 46 * Math.sin(angle);
             const Icon = skill.icon;
+            const wave = i % 2 === 0 ? "-translate-y-4" : "translate-y-4";
             return (
               <div
                 key={skill.name}
-                className="absolute w-12 h-12 rounded-full bg-neutral-900 border border-neutral-700 flex items-center justify-center"
-                style={{
-                  left: `${x}%`,
-                  top: `${y}%`,
-                  transform: "translate(-50%, -50%)",
-                }}
-                title={skill.name}
+                className={`flex flex-col items-center gap-2 ${wave}`}
               >
-                <Icon size={20} className="text-neutral-300" />
+                <div className="w-14 h-14 rounded-2xl bg-neutral-900 border border-neutral-700 flex items-center justify-center shadow-lg">
+                  <Icon size={24} style={{ color: skill.color }} />
+                </div>
+                <span className="text-xs text-neutral-400 text-center">
+                  {skill.name}
+                </span>
               </div>
             );
           })}
         </div>
-        <div className="w-6 h-6 rounded-full bg-purple-500/30" />
       </div>
     </section>
   );
