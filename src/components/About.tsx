@@ -118,15 +118,19 @@ export default function About() {
               The developer behind the screen
             </h2>
             <p className="text-neutral-400 leading-relaxed mb-6">
-              I'm a Full-Stack Developer based in Toronto, Canada. I hold a
-              Master's in Software Engineering and have over 3 years of
-              experience building scalable, user-focused web applications using
-              React, TypeScript, Node.js, and Azure. I love combining clean
-              design with efficient code — transforming ideas into seamless,
-              functional, and beautiful digital experiences. My current focus is
-              on building intuitive interfaces, AI-powered features, and
-              automation tools that make everyday workflows smarter and more
-              meaningful.
+              I'm Roopamdeep, a full-stack developer based in Toronto, building
+              software that turns messy, everyday problems into something people
+              actually enjoy using. With a Master's in Software Engineering and
+              3+ years of hands-on experience across React, TypeScript, Node.js,
+              and Azure, I care less about following trends and more about
+              shipping things that genuinely work well. Lately I've been
+              obsessed with what happens when you pair solid engineering with AI
+              that actually earns its place in a product, not bolted on for the
+              sake of it, but woven into the workflow so it quietly makes
+              people's lives easier. <br></br>I'm the kind of person who reads
+              documentation for fun and then forgets to eat lunch because I
+              found something interesting three links deep. If a problem is hard
+              enough to be annoying, I'm probably already invested.
             </p>
 
             <button

@@ -33,7 +33,7 @@ const projects = [
   {
     title: "StackMatch",
     description:
-      "An AI hiring platform matching developers to jobs based on tech stack alignment, JWT auth, AI-powered resume scoring, and AWS S3 file storage.",
+      "An AI hiring platform matching developers to jobs based on tech stack alignment — JWT auth, AI-powered resume scoring, and AWS S3 file storage.",
     tags: ["Next.js", "TypeScript", "PostgreSQL", "Prisma"],
     github: "https://github.com/roopamdeep/stackmatch",
     demo: "https://stackmatch-rose.vercel.app/",
@@ -84,11 +84,21 @@ export default function Projects() {
     return () => ctx.revert();
   }, []);
 
-  const scrollByCard = (dir: number) => {
+  const scrollToCard = (index: number) => {
     const el = scrollerRef.current;
     if (!el) return;
-    el.scrollBy({ left: dir * 300, behavior: "smooth" });
-    setActive((prev) => Math.min(Math.max(prev + dir, 0), projects.length - 1));
+    const card = el.children[index] as HTMLElement;
+    card?.scrollIntoView({
+      behavior: "smooth",
+      inline: "start",
+      block: "nearest",
+    });
+    setActive(index);
+  };
+
+  const scrollByCard = (dir: number) => {
+    const next = Math.min(Math.max(active + dir, 0), projects.length - 1);
+    scrollToCard(next);
   };
 
   return (
@@ -122,7 +132,7 @@ export default function Projects() {
         </p>
         <div className="flex justify-between items-end mb-12">
           <h2 className="text-3xl md:text-5xl font-bold">Things I've built</h2>
-          <div className="hidden md:flex gap-2">
+          <div className="flex gap-2">
             <button
               onClick={() => scrollByCard(-1)}
               className="w-9 h-9 rounded-full border border-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white"
@@ -140,14 +150,14 @@ export default function Projects() {
 
         <div
           ref={scrollerRef}
-          className="flex gap-6 overflow-x-auto pb-4 scroll-smooth scrollbar-hide"
+          className="flex overflow-x-auto scroll-smooth scrollbar-hide snap-x snap-mandatory"
         >
           {projects.map((project) => (
             <div
               key={project.title}
-              className="min-w-70 bg-neutral-900 rounded-xl p-6 shrink-0"
+              className="w-full shrink-0 snap-start bg-neutral-900 rounded-xl p-6"
             >
-              <div className="relative w-full h-32 bg-neutral-800 rounded-lg mb-4 overflow-hidden">
+              <div className="relative w-full h-48 md:h-64 bg-neutral-800 rounded-lg mb-4 overflow-hidden">
                 <Image
                   src={project.image}
                   alt={project.title}
@@ -156,7 +166,7 @@ export default function Projects() {
                 />
               </div>
               <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
-              <p className="text-sm text-neutral-400 mb-4">
+              <p className="text-sm text-neutral-400 mb-4 max-w-2xl">
                 {project.description}
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
@@ -195,18 +205,23 @@ export default function Projects() {
 
         <div className="flex justify-center gap-2 mt-6">
           {projects.map((_, i) => (
-            <span
+            <button
               key={i}
-              className={`w-1.5 h-1.5 rounded-full ${
+              onClick={() => scrollToCard(i)}
+              className={`w-1.5 h-1.5 rounded-full transition-colors ${
                 i === active ? "bg-purple-400" : "bg-neutral-700"
               }`}
             />
           ))}
         </div>
-
-        <button className="mt-8 text-sm text-neutral-300 border border-neutral-700 rounded-md px-4 py-2 hover:text-white hover:border-neutral-500 transition-colors">
+        <a
+          href="https://github.com/roopamdeep?tab=repositories"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-8 inline-block text-sm text-neutral-300 border border-neutral-700 rounded-md px-4 py-2 hover:text-white hover:border-neutral-500 transition-colors"
+        >
           View all projects ↗
-        </button>
+        </a>
       </div>
     </section>
   );
