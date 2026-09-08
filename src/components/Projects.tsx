@@ -71,7 +71,7 @@ export default function Projects() {
     const ctx = gsap.context(() => {
       gsap.from(sectionRef.current, {
         opacity: 0,
-        y: 40,
+        y: -40,
         duration: 1,
         ease: "power3.out",
         scrollTrigger: {

@@ -13,7 +13,8 @@ interface Star {
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
-  const nameRef = useRef<HTMLHeadingElement>(null);
+  const nameLine1Ref = useRef<HTMLSpanElement>(null);
+  const nameLine2Ref = useRef<HTMLSpanElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const shape1Ref = useRef<HTMLDivElement>(null);
@@ -35,15 +36,37 @@ export default function Hero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(
-        [
-          taglineRef.current,
-          nameRef.current,
-          descRef.current,
-          buttonRef.current,
-        ],
-        { opacity: 0, y: 30, duration: 1, stagger: 0.15, ease: "power3.out" },
-      );
+      gsap.from(taglineRef.current, {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        ease: "power3.out",
+      });
+
+      gsap.from(nameLine1Ref.current, {
+        opacity: 0,
+        y: -80,
+        duration: 1,
+        delay: 0.15,
+        ease: "power3.out",
+      });
+
+      gsap.from(nameLine2Ref.current, {
+        opacity: 0,
+        y: 80,
+        duration: 1,
+        delay: 0.3,
+        ease: "power3.out",
+      });
+
+      gsap.from([descRef.current, buttonRef.current], {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        stagger: 0.15,
+        delay: 0.6,
+        ease: "power3.out",
+      });
 
       gsap.to(shape1Ref.current, {
         y: -20,
@@ -122,13 +145,13 @@ export default function Hero() {
       >
         FULL STACK DEVELOPER
       </p>
-      <h1
-        ref={nameRef}
-        className="font-[family-name:var(--font-oswald)] text-6xl md:text-9xl font-bold uppercase leading-[0.85] tracking-tight mb-6 text-neutral-100 relative"
-      >
-        Roopamdeep
-        <br />
-        Kaur
+      <h1 className="font-[family-name:var(--font-oswald)] text-6xl md:text-9xl font-bold uppercase leading-[0.85] tracking-tight mb-6 text-neutral-100 relative overflow-hidden">
+        <span ref={nameLine1Ref} className="block">
+          Roopamdeep
+        </span>
+        <span ref={nameLine2Ref} className="block">
+          Kaur
+        </span>
       </h1>
       <p ref={descRef} className="text-neutral-400 max-w-md mb-8 relative">
         I build fast, thoughtful and interactive digital experiences.

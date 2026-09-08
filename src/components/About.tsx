@@ -53,6 +53,10 @@ const stats = [
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const leftColRef = useRef<HTMLDivElement>(null);
+  const rightColRef = useRef<HTMLDivElement>(null);
+  const traitsRef = useRef<HTMLDivElement>(null);
   const [stars, setStars] = useState<Star[]>([]);
 
   useEffect(() => {
@@ -68,13 +72,51 @@ export default function About() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(sectionRef.current, {
+      gsap.from(headingRef.current, {
         opacity: 0,
-        y: 40,
+        y: -60,
         duration: 1,
         ease: "power3.out",
         scrollTrigger: {
           trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+
+      gsap.from(leftColRef.current, {
+        opacity: 0,
+        x: -50,
+        duration: 1,
+        delay: 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+
+      gsap.from(rightColRef.current, {
+        opacity: 0,
+        x: 50,
+        duration: 1,
+        delay: 0.3,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+
+      gsap.from(traitsRef.current, {
+        opacity: 0,
+        y: 60,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: traitsRef.current,
           start: "top 90%",
           toggleActions: "play none none none",
         },
@@ -109,28 +151,26 @@ export default function About() {
       </span>
 
       <div className="relative">
+        <p className="text-purple-300 text-sm tracking-widest mb-4">ABOUT ME</p>
+        <h2
+          ref={headingRef}
+          className="font-[family-name:var(--font-oswald)] text-3xl md:text-5xl font-bold uppercase mb-8"
+        >
+          The developer behind the screen
+        </h2>
+
         <div className="grid md:grid-cols-2 gap-12 mb-12">
-          <div>
-            <p className="text-purple-300 text-sm tracking-widest mb-4">
-              ABOUT ME
-            </p>
-            <h2 className="font-[family-name:var(--font-oswald)] text-3xl md:text-5xl font-bold uppercase mb-8">
-              The developer behind the screen
-            </h2>
+          <div ref={leftColRef}>
             <p className="text-neutral-400 leading-relaxed mb-6">
-              I'm Roopamdeep, a full-stack developer based in Toronto, building
-              software that turns messy, everyday problems into something people
-              actually enjoy using. With a Master's in Software Engineering and
-              3+ years of hands-on experience across React, TypeScript, Node.js,
-              and Azure, I care less about following trends and more about
-              shipping things that genuinely work well. Lately I've been
-              obsessed with what happens when you pair solid engineering with AI
-              that actually earns its place in a product, not bolted on for the
-              sake of it, but woven into the workflow so it quietly makes
-              people's lives easier. <br></br>I'm the kind of person who reads
-              documentation for fun and then forgets to eat lunch because I
-              found something interesting three links deep. If a problem is hard
-              enough to be annoying, I'm probably already invested.
+              I got into development because I liked figuring out how things
+              work, then realized I liked building them even more. These days
+              I'm a Full-Stack Developer in Toronto, working mostly in React,
+              TypeScript, Node.js, and Azure, with a Master's in Software
+              Engineering backing it up. I'm not big on overcomplicating things,
+              if a solution can be simple and it still works well, that's the
+              win. Right now I'm spending a lot of time on AI-powered features
+              and automation, basically anything that saves someone a few extra
+              clicks or a headache.
             </p>
 
             <button
@@ -145,7 +185,7 @@ export default function About() {
             </button>
           </div>
 
-          <div className="flex flex-col gap-4 justify-center">
+          <div ref={rightColRef} className="flex flex-col gap-4 justify-center">
             {stats.map((stat) => {
               const Icon = stat.icon;
               return (
@@ -166,15 +206,15 @@ export default function About() {
               );
             })}
 
-            <div className="mt-2 bg-linear-to-r from-blue-500/10 to-purple-500/10 border border-blue-400/20 rounded-xl p-5">
-              <p className="font-(family-name:--font-fredoka) text-2xl bg-linear-to-r from-white to-blue-300 bg-clip-text text-transparent">
+            <div className="mt-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-400/20 rounded-xl p-5">
+              <p className="font-[family-name:var(--font-fredoka)] text-2xl bg-gradient-to-r from-white to-blue-300 bg-clip-text text-transparent">
                 "Curious by nature, developer by trade."
               </p>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div ref={traitsRef} className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {traits.map((trait) => {
             const Icon = trait.icon;
             return (
